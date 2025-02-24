@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Congressional Recall Amendment</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero-bg min-h-screen flex items-center justify-center relative">
+        <div class="container mx-auto px-4 py-16 relative z-10 text-center">
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 glow-text">Restore Congressional Accountability</h1>
+            <p class="text-xl md:text-2xl mb-10 max-w-3xl mx-auto">A constitutional amendment to establish federal recall elections for members of Congress</p>
+            <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-lg text-xl pulse-button" id="openAmendmentBtn">
+                Read The Amendment
+            </button>
+            <div class="mt-12">
+                <img src="/api/placeholder/400/320" alt="Capitol with voting box illustration" class="mx-auto">
+            </div>
+        </div>
+    </section>
+
+    <!-- Why This Is Needed Now Section -->
+    <section class="bg-gray-900 py-20">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold mb-16 text-center">Why This Is Needed Now</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-semibold mb-4">Record Low Approval</h3>
+                    <div class="mb-4 text-6xl font-bold text-red-500 count-animation">17%</div>
+                    <p>Only 17% of Americans approve of Congress—the lowest in decades.</p>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-semibold mb-4">Public Distrust</h3>
+                    <div class="mb-4 text-6xl font-bold text-red-500">80%+</div>
+                    <p>Over 80% of Americans believe politicians prioritize personal interests over public service.</p>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-semibold mb-4">Incumbent Protection</h3>
+                    <div class="mb-4 text-6xl font-bold text-red-500">94-100%</div>
+                    <p>In 2022, 94% of House incumbents and 100% of Senate incumbents seeking reelection won their races.</p>
+                </div>
+            </div>
+            <div class="mt-16 text-center">
+                <p class="text-xl max-w-4xl mx-auto">Existing accountability measures, like impeachment and ethics investigations, only apply to criminal misconduct or violations of office rules. There is no mechanism to remove legislators who lose public confidence but remain in office due to partisan gridlock, financial backing, or political maneuvering.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="bg-gray-800 py-20">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold mb-16 text-center">How It Works: Article V Convention</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6">The Process</h3>
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="bg-blue-600 rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0">1</div>
+                            <div>
+                                <p class="text-lg">Two-thirds (34) of state legislatures must apply for an Article V Convention.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-blue-600 rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0">2</div>
+                            <div>
+                                <p class="text-lg">The convention is limited to proposing a congressional recall amendment.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-blue-600 rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0">3</div>
+                            <div>
+                                <p class="text-lg">Once proposed, three-fourths (38) of states must ratify the amendment.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-blue-600 rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0">4</div>
+                            <div>
+                                <p class="text-lg">The amendment becomes part of the Constitution.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6">Legal Safeguards</h3>
+                    <div class="space-y-4">
+                        <div class="bg-gray-700 p-4 rounded-lg">
+                            <div class="flex items-center">
+                                <span class="text-green-400 text-2xl mr-3">✓</span>
+                                <h4 class="text-xl font-medium">Limited Scope</h4>
+                            </div>
+                            <p class="mt-2">The resolution explicitly restricts the convention to a single subject: congressional recall elections.</p>
+                        </div>
+                        <div class="bg-gray-700 p-4 rounded-lg">
+                            <div class="flex items-center">
+                                <span class="text-green-400 text-2xl mr-3">✓</span>
+                                <h4 class="text-xl font-medium">State Ratification Requirement</h4>
+                            </div>
+                            <p class="mt-2">Any proposed amendment would still need ratification from three-fourths (38) of state legislatures.</p>
+                        </div>
+                        <div class="bg-gray-700 p-4 rounded-lg">
+                            <div class="flex items-center">
+                                <span class="text-green-400 text-2xl mr-3">✓</span>
+                                <h4 class="text-xl font-medium">Legal Precedent</h4>
+                            </div>
+                            <p class="mt-2">Supreme Court cases affirm that states retain control over the convention process.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Section -->
+    <section class="bg-gray-900 py-20">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold mb-16 text-center">Impact: Consequences of the Amendment</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6 flex items-center"><span class="bg-green-600 p-1 rounded mr-2">🔷</span> For the Public</h3>
+                    <div class="space-y-4">
+                        <div class="bg-gray-800 p-4 rounded-lg">
+                            <div class="flex items-center">
+                                <span class="text-green-400 text-2xl mr-3">✓</span>
+                                <h4 class="text-xl font-medium">Direct Power Over Congress</h4>
+                            </div>
+                            <p class="mt-2">Voters regain the ability to remove corrupt or negligent representatives.</p>
+                        </div>
+                        <div class="bg-gray-800 p-4 rounded-lg">
+                            <div class="flex items-center">
+                                <span class="text-green-400 text-2xl mr-3">✓</span>
+                                <h4 class="text-xl font-medium">Higher Voter Engagement</h4>
+                            </div>
+                            <p class="mt-2">More people will pay attention to how their representatives vote and act.</p>
+                        </div>
+                        <div class="bg-gray-800 p-4 rounded-lg">
+                            <div class="flex items-center">
+                                <span class="text-green-400 text-2xl mr-3">✓</span>
+                                <h4 class="text-xl font-medium">More Trust in Democracy</h4>
+                            </div>
+                            <p class="mt-2">The public sees that the system can actually hold politicians accountable.</p>
+                        </div>
+                        <div class="bg-gray-800 p-4 rounded-lg">
+                            <div class="flex items-center">
+                                <span class="text-green-400 text-2xl mr-3">✓</span>
+                                <h4 class="text-xl font-medium">Increased Political Stability</h4>
+                            </div>
+                            <p class="mt-2">Provides a legal, structured process to remove bad actors without waiting years for elections.</p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6 flex items-center"><span class="bg-blue-600 p-1 rounded mr-2">🔷</span> For Congress</h3>
+                    <div class="space-y-4">
+                        <div class="bg-gray-800 p-4 rounded-lg">
+                            <div class="flex items-center">
+                                <span class="text-blue-400 text-2xl mr-3">✓</span>
+                                <h4 class="text-xl font-medium">Fear of Removal Changes Governance</h4>
+                            </div>
+                            <p class="mt-2">Members of Congress will be forced to listen to their voters, not just party leadership.</p>
+                        </div>
+                        <div class="bg-gray-800 p-4 rounded-lg">
+                            <div class="flex items-center">
+                                <span class="text-blue-400 text-2xl mr-3">✓</span>
+                                <h4 class="text-xl font-medium">Weakened Lobbyist Influence</h4>
+                            </div>
+                            <p class="mt-2">Corporate lobbying influence weakens because voters, not donors, hold the final say.</p>
+                        </div>
+                        <div class="bg-gray-800 p-4 rounded-lg">
+                            <div class="flex items-center">
+                                <span class="text-blue-400 text-2xl mr-3">✓</span>
+                                <h4 class="text-xl font-medium">Reduced Partisan Gridlock</h4>
+                            </div>
+                            <p class="mt-2">Congress can no longer block legislation just to sabotage the other party.</p>
+                        </div>
+                        <div class="bg-gray-800 p-4 rounded-lg">
+                            <div class="flex items-center">
+                                <span class="text-blue-400 text-2xl mr-3">✓</span>
+                                <h4 class="text-xl font-medium">Increased Government Efficiency</h4>
+                            </div>
+                            <p class="mt-2">Congress will have a stronger incentive to move faster on key issues.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Get Involved Section -->
+    <section class="bg-gray-800 py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold mb-10">Get Involved</h2>
+            <p class="text-xl mb-12 max-w-4xl mx-auto">Join the movement to restore accountability in Congress. Together, we can make our representatives answer directly to the people.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                <div class="step-card bg-blue-800 p-6 rounded-lg shadow-lg">
+                    <div class="text-4xl mb-4">📋</div>
+                    <h3 class="text-xl font-semibold mb-3">Sign The Petition</h3>
+                    <p class="mb-4">Add your voice to thousands demanding constitutional accountability.</p>
+                    <button class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-6 rounded-lg font-medium">Sign Now</button>
+                </div>
+                <div class="step-card bg-blue-800 p-6 rounded-lg shadow-lg">
+                    <div class="text-4xl mb-4">🏛️</div>
+                    <h3 class="text-xl font-semibold mb-3">Contact Your Legislators</h3>
+                    <p class="mb-4">Tell your state representatives to support the recall amendment.</p>
+                    <button class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-6 rounded-lg font-medium">Find Representatives</button>
+                </div>
+                <div class="step-card bg-blue-800 p-6 rounded-lg shadow-lg">
+                    <div class="text-4xl mb-4">🔗</div>
+                    <h3 class="text-xl font-semibold mb-3">Spread The Word</h3>
+                    <p class="mb-4">Share this movement on social media and with your community.</p>
+                    <button class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-6 rounded-lg font-medium">Share Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6">Stay Connected</h3>
+                    <form class="mb-6">
+                        <div class="flex flex-col sm:flex-row">
+                            <input type="email" placeholder="Your email address" class="bg-gray-800 border border-gray-700 rounded-l px-4 py-3 w-full sm:w-auto mb-2 sm:mb-0 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <button class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-r">Subscribe</button>
+                        </div>
+                    </form>
+                    <p>Join our movement to restore accountability in Congress.</p>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6">Contact Us</h3>
+                    <p class="mb-4">Have questions or want to get involved? Reach out to our team.</p>
+                    <a href="mailto:info@congressionalrecall.org" class="text-blue-400 hover:text-blue-300">info@congressionalrecall.org</a>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 Congressional Recall Amendment Movement. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Amendment Modal -->
+    <div id="amendmentModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 class="text-3xl font-bold mb-6 text-center">Proposed Congressional Recall Amendment</h2>
+            <div class="bg-gray-800 p-6 rounded-lg">
+                <h3 class="text-xl font-semibold mb-4">PROPOSED AMENDMENT – CONGRESSIONAL RECALL</h3>
+                <div class="space-y-4">
+                    <p><strong>Section 1.</strong> The people of each state shall have the power to recall a United States Senator or Representative through a public election.</p>
+                    
+                    <p><strong>Section 2.</strong> A recall election shall be held if a petition signed by at least twenty-five percent of the number of voters who participated in the most recent election for that office is submitted and verified by the state's election authority. Congress shall have the power to establish uniform verification standards to ensure fair and timely certification of recall petitions, consistent with its authority under Article I, Section 4 of this Constitution. States shall not impose additional requirements that unduly restrict the right to recall.</p>
+                    
+                    <p><strong>Section 3.</strong> A recall election shall be conducted within ninety days of petition certification. If the recalled member is removed, a successor shall be elected in the same election. If no candidate receives a majority, a runoff election shall be held within thirty days. A recalled official shall be removed from office immediately upon certification of recall election results. A recalled official shall be ineligible to run in the recall election for their own seat and may not run for the same seat in the next regularly scheduled election. A recall election shall only be valid if voter turnout meets at least forty percent of the turnout in the most recent election for that office or matches the turnout percentage of that election, whichever is lower.</p>
+                    
+                    <p><strong>Section 4.</strong> No recall election shall be held within the first year of a Senator's term or the first six months of a Representative's term. No member shall be subject to more than one recall election per term.</p>
+                    
+                    <p><strong>Section 5.</strong> If a Senator is recalled, the state may fill the vacancy through a special election or follow its established procedure for Senate vacancies, as permitted under Article I, Section 3 of this Constitution. If a Representative is recalled, the vacancy shall be filled by special election, consistent with Article I, Section 2. If no candidate qualifies for the recall election, a special election shall be held within sixty days to fill the vacancy.</p>
+                    
+                    <p><strong>Section 6.</strong> Congress shall have the power to enforce this article through appropriate legislation, consistent with its authority under Article I, Section 4 of this Constitution, to regulate the manner of federal elections. If a state fails to hold a recall election within the required timeframe, federal election authorities shall conduct the recall election in that state.</p>
+                </div>
+            </div>
+            <div class="mt-8">
+                <h3 class="text-2xl font-semibold mb-4">Key Features</h3>
+                <ul class="list-disc pl-5 space-y-2">
+                    <li>Requires petitions signed by 25% of voters from the most recent election</li>
+                    <li>Elections must be held within 90 days of petition certification</li>
+                    <li>Minimum 40% voter turnout requirement</li>
+                    <li>Recalled officials cannot run in the recall election or in the next regular election</li>
+                    <li>Limits: No recalls in first year for Senators/first six months for Representatives</li>
+                    <li>Maximum one recall attempt per term</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
