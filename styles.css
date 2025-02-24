@@ -84,13 +84,3 @@ body {
 .step-card:hover {
     transform: translateY(-5px);
 }
-
-@keyframes countDown {
-    from { content: "50%"; }
-    to { content: "17%"; }
-}
-
-.count-animation::after {
-    content: "17%";
-    animation: countDown 3s ease-out;
-}
