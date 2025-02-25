@@ -331,17 +331,36 @@
             const repsList = document.getElementById('repsList');
             const errorMessage = document.getElementById('errorMessage');
             
-            // API key for OpenStates API - you'll need to replace this with your actual API key
-            const OPENSTATES_API_KEY = 'YOUR_OPENSTATES_API_KEY';
+            // API key for OpenStates API
+            const OPENSTATES_API_KEY = '8350a02-aa9c-4ab8-a5c7-f6a0cf015828';
             
             // Function to find representatives by ZIP code
             function findRepresentativesByZip(zipCode) {
                 showLoading();
                 
-                // Make API request to OpenStates
-                fetch(`https://v3.openstates.org/people?district=${zipCode}`, {
+                // First convert ZIP to coordinates using Census Geocoding API (free, no key needed)
+                fetch(`https://geocoding.geo.census.gov/geocoder/locations/address?street=&city=&state=&benchmark=2020&format=json&zip=${zipCode}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.result && data.result.addressMatches && data.result.addressMatches[0]) {
+                            const coords = data.result.addressMatches[0].coordinates;
+                            return findRepresentativesByLocation(coords.y, coords.x); // y is lat, x is long
+                        } else {
+                            throw new Error('Could not find location for ZIP code');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error getting coordinates:', error);
+                        showError('Could not find location for this ZIP code');
+                    });
+            }
+
+            // Function to find representatives by location
+            function findRepresentativesByLocation(lat, lng) {
+                return fetch(`https://v3.openstates.org/people.geo?lat=${lat}&lng=${lng}`, {
                     headers: {
-                        'X-API-Key': OPENSTATES_API_KEY
+                        'X-API-Key': OPENSTATES_API_KEY,
+                        'Accept': 'application/json'
                     }
                 })
                 .then(response => {
@@ -355,7 +374,7 @@
                 })
                 .catch(error => {
                     console.error('Error fetching representatives:', error);
-                    showError();
+                    showError('Unable to find representatives for this location');
                 });
             }
             
@@ -371,33 +390,9 @@
                 navigator.geolocation.getCurrentPosition(
                     position => {
                         const { latitude, longitude } = position.coords;
-                        
-                        // Use reverse geocoding to get ZIP code
-                        fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=YOUR_GOOGLE_MAPS_API_KEY`)
-                            .then(response => response.json())
-                            .then(data => {
-                                let zipCode = '';
-                                if (data.results && data.results.length > 0) {
-                                    // Extract ZIP code from address components
-                                    for (const component of data.results[0].address_components) {
-                                        if (component.types.includes('postal_code')) {
-                                            zipCode = component.short_name;
-                                            break;
-                                        }
-                                    }
-                                    
-                                    if (zipCode) {
-                                        zipCodeInput.value = zipCode;
-                                        findRepresentativesByZip(zipCode);
-                                    } else {
-                                        showError('Could not determine your ZIP code');
-                                    }
-                                } else {
-                                    showError('Could not determine your location');
-                                }
-                            })
+                        findRepresentativesByLocation(latitude, longitude)
                             .catch(error => {
-                                console.error('Error getting ZIP code:', error);
+                                console.error('Error getting representatives:', error);
                                 showError();
                             });
                     },
