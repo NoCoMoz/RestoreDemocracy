@@ -194,66 +194,57 @@
             <h2 class="text-4xl font-bold mb-10">Get Involved</h2>
             <p class="text-xl mb-12 max-w-4xl mx-auto">Join the movement to restore accountability in Congress. Together, we can make our representatives answer directly to the people.</p>
             
-            <!-- Representative Finder -->
-            <div class="bg-gray-700 p-6 rounded-lg shadow-lg mt-12 max-w-4xl mx-auto">
-                <h3 class="text-2xl font-semibold mb-4 text-center">Find Your Local Representatives</h3>
-                <p class="mb-6 text-center">Contact your state legislators to support the Congressional Recall Amendment</p>
-                
-                <div class="max-w-md mx-auto">
-                    <div class="flex flex-col md:flex-row mb-6">
-                        <input type="text" id="zipCodeInput" placeholder="Enter your ZIP code" class="bg-gray-800 border border-gray-600 rounded-l px-4 py-3 w-full md:w-2/3 mb-2 md:mb-0 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        <button id="findRepsBtn" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-r md:w-1/3">Find Representatives</button>
-                    </div>
-                    
-                    <div id="locationDetection" class="text-center mb-4">
-                        <button id="detectLocationBtn" class="text-blue-400 hover:text-blue-300 text-sm flex items-center justify-center mx-auto">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                            </svg>
-                            Use my current location
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Loading spinner -->
-                <div id="loadingSpinner" class="hidden text-center py-4">
-                    <div class="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500"></div>
-                    <p class="mt-2">Searching for your representatives...</p>
-                </div>
-                
-                <!-- Results container -->
-                <div id="representativesResults" class="hidden mt-6">
-                    <h4 class="text-xl font-medium mb-4">Your State Representatives:</h4>
-                    <div id="repsList" class="space-y-4">
-                        <!-- Representatives will be populated here -->
-                    </div>
-                </div>
-                
-                <!-- Error message -->
-                <div id="errorMessage" class="hidden text-red-500 text-center mt-4">
-                    Unable to find representatives. Please check your ZIP code and try again.
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto mt-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
                 <div class="step-card bg-blue-800 p-6 rounded-lg shadow-lg">
                     <div class="text-4xl mb-4">📋</div>
                     <h3 class="text-xl font-semibold mb-3">Sign The Petition</h3>
-                    <p class="mb-4">Add your voice to thousands demanding constitutional accountability.</p>
-                    <button class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-6 rounded-lg font-medium">Sign Now</button>
+                    <p class="mb-6">Add your voice to thousands demanding constitutional accountability.</p>
+                    <button class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded">Sign Now</button>
                 </div>
+
                 <div class="step-card bg-blue-800 p-6 rounded-lg shadow-lg">
                     <div class="text-4xl mb-4">🏛️</div>
                     <h3 class="text-xl font-semibold mb-3">Contact Your Legislators</h3>
                     <p class="mb-4">Tell your state representatives to support the recall amendment.</p>
-                    <button class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-6 rounded-lg font-medium">Find Representatives</button>
+                    
+                    <!-- Compact Representative Finder -->
+                    <div class="mb-4">
+                        <div class="flex gap-2 mb-2">
+                            <input type="text" id="zipCodeInput" placeholder="Enter ZIP code" class="bg-gray-800 border border-gray-600 rounded-l px-3 py-2 text-sm w-2/3 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <button id="findRepsBtn" class="bg-blue-600 hover:bg-blue-700 text-white text-sm py-2 px-3 rounded w-1/3">Find Reps</button>
+                        </div>
+                        <button id="detectLocationBtn" class="text-blue-400 hover:text-blue-300 text-xs flex items-center justify-center mx-auto">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                            Use my location
+                        </button>
+                    </div>
+
+                    <!-- Loading spinner -->
+                    <div id="loadingSpinner" class="hidden text-center py-2">
+                        <div class="inline-block animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-blue-500"></div>
+                        <p class="text-xs mt-1">Searching...</p>
+                    </div>
+
+                    <!-- Results container -->
+                    <div id="representativesResults" class="hidden mt-4 text-left">
+                        <h4 class="text-sm font-medium mb-2">Your Representatives:</h4>
+                        <div id="repsList" class="space-y-2 max-h-48 overflow-y-auto">
+                            <!-- Representatives will be populated here -->
+                        </div>
+                    </div>
+
+                    <!-- Error message -->
+                    <div id="errorMessage" class="hidden text-red-500 text-xs text-center mt-2"></div>
                 </div>
+
                 <div class="step-card bg-blue-800 p-6 rounded-lg shadow-lg">
                     <div class="text-4xl mb-4">🔗</div>
                     <h3 class="text-xl font-semibold mb-3">Spread The Word</h3>
-                    <p class="mb-4">Share this movement on social media and with your community.</p>
-                    <button class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-6 rounded-lg font-medium">Share Now</button>
+                    <p class="mb-6">Share this movement on social media and with your community.</p>
+                    <button class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded">Share Now</button>
                 </div>
             </div>
         </div>
@@ -419,7 +410,7 @@
                 // Add each representative to the list
                 representatives.forEach(rep => {
                     const repCard = document.createElement('div');
-                    repCard.className = 'bg-gray-800 p-4 rounded-lg';
+                    repCard.className = 'bg-gray-700 p-2 rounded text-sm';
                     
                     const partyColor = rep.party === 'Democratic' ? 'text-blue-400' : 
                                     rep.party === 'Republican' ? 'text-red-400' : 'text-gray-400';
@@ -427,20 +418,20 @@
                     repCard.innerHTML = `
                         <div class="flex justify-between items-start">
                             <div>
-                                <h5 class="text-lg font-medium">${rep.name}</h5>
-                                <p class="text-sm ${partyColor}">${rep.party || 'Unknown Party'}</p>
-                                <p class="text-sm text-gray-300">${rep.district || ''}</p>
+                                <h5 class="font-medium">${rep.name}</h5>
+                                <p class="text-xs ${partyColor}">${rep.party || 'Unknown Party'}</p>
                             </div>
-                            <div>
-                                <a href="mailto:${rep.email}" class="bg-blue-600 hover:bg-blue-700 text-white text-sm py-1 px-3 rounded">
-                                    Email
-                                </a>
-                            </div>
+                            ${rep.email ? `
+                            <a href="mailto:${rep.email}" class="bg-blue-600 hover:bg-blue-700 text-white text-xs py-1 px-2 rounded">
+                                Email
+                            </a>
+                            ` : ''}
                         </div>
-                        <div class="mt-3 text-sm">
-                            ${rep.email ? `<p><strong>Email:</strong> ${rep.email}</p>` : ''}
-                            ${rep.offices && rep.offices.length > 0 ? `<p><strong>Phone:</strong> ${rep.offices[0].phone || 'N/A'}</p>` : ''}
+                        ${(rep.email || (rep.offices && rep.offices[0]?.phone)) ? `
+                        <div class="mt-1 text-xs text-gray-300">
+                            ${rep.offices && rep.offices[0]?.phone ? `<p>📞 ${rep.offices[0].phone}</p>` : ''}
                         </div>
+                        ` : ''}
                     `;
                     
                     repsList.appendChild(repCard);
