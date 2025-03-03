@@ -242,6 +242,7 @@ Thank you for your time and service.`;
         noteElement.innerHTML = `
             <p><strong>Your State Legislators</strong>: Showing ${legislators.length} state legislators who directly represent your district.</p>
             <p class="mt-1 text-xs">These officials can vote on state applications for an Article V convention.</p>
+            <p class="mt-1 text-xs italic">Some representatives prefer to be contacted through forms on their official websites rather than by direct email.</p>
             <div class="mt-2">
                 <button id="showAllStateReps" class="text-xs bg-blue-700 hover:bg-blue-600 text-white px-3 py-1 rounded">
                     Show All ${state} Legislators
@@ -308,7 +309,11 @@ Thank you for your time and service.`;
                     </div>
                     <div class="flex items-center mb-1">
                         <span class="mr-2">✉️</span>
-                        <span class="${email === 'No email available' ? 'text-gray-500' : 'text-gray-300'}">${escapeHtml(email)}</span>
+                        <span class="${email === 'No email available' ? 'text-gray-500' : 'text-gray-300'}">
+                            ${email === 'No email available' ? 
+                                'No email available (may use website contact form instead)' : 
+                                escapeHtml(email)}
+                        </span>
                     </div>
                 </div>
                 <div class="mt-4 flex space-x-2">
@@ -379,6 +384,7 @@ Thank you for your time and service.`;
             noteElement.innerHTML = `
                 <p><strong>All State Legislators for ${state}</strong>: Showing all state-level legislators. Your district representatives are highlighted with a green border.</p>
                 <p class="mt-1 text-xs">These officials can vote on state applications for an Article V convention. Federal officials are not shown.</p>
+                <p class="mt-1 text-xs italic">Some representatives prefer to be contacted through forms on their official websites rather than by direct email.</p>
                 <div class="mt-2">
                     <button id="showDistrictOnly" class="text-xs bg-blue-700 hover:bg-blue-600 text-white px-3 py-1 rounded">
                         Show Only My District (${districtLegislators.length})
@@ -389,6 +395,7 @@ Thank you for your time and service.`;
             noteElement.innerHTML = `
                 <p><strong>State Legislators for ${state}</strong>: Showing all state-level legislators (State Senators, Representatives, Assemblymembers, etc.) for ${state}.</p>
                 <p class="mt-1 text-xs">These officials can vote on state applications for an Article V convention. Federal officials are not shown.</p>
+                <p class="mt-1 text-xs italic">Some representatives prefer to be contacted through forms on their official websites rather than by direct email.</p>
             `;
         }
         
@@ -463,7 +470,11 @@ Thank you for your time and service.`;
                     </div>
                     <div class="flex items-center mb-1">
                         <span class="mr-2">✉️</span>
-                        <span class="${email === 'No email available' ? 'text-gray-500' : 'text-gray-300'}">${escapeHtml(email)}</span>
+                        <span class="${email === 'No email available' ? 'text-gray-500' : 'text-gray-300'}">
+                            ${email === 'No email available' ? 
+                                'No email available (may use website contact form instead)' : 
+                                escapeHtml(email)}
+                        </span>
                     </div>
                 </div>
                 <div class="mt-4 flex space-x-2">
@@ -700,7 +711,11 @@ Thank you for your time and service.`;
                         </div>
                         <div class="flex items-center mb-1">
                             <span class="mr-2">✉️</span>
-                            <span class="${email === 'No email available' ? 'text-gray-500' : 'text-gray-300'}">${escapeHtml(email)}</span>
+                            <span class="${email === 'No email available' ? 'text-gray-500' : 'text-gray-300'}">
+                                ${email === 'No email available' ? 
+                                    'No email available (may use website contact form instead)' : 
+                                    escapeHtml(email)}
+                            </span>
                         </div>
                         ${rep.official.urls && rep.official.urls[0] ? `
                         <div class="flex items-center">
@@ -768,6 +783,7 @@ Thank you for your time and service.`;
         noteElement.innerHTML = `
             <p><strong>State Legislators Only:</strong> Showing only state-level legislators (State Senators, State Representatives, State Assembly members, etc.). These officials can vote on state applications for an Article V convention.</p>
             <p class="mt-1 text-xs">Federal officials like U.S. Senators and U.S. Representatives are not shown.</p>
+            <p class="mt-1 text-xs italic">Some representatives prefer to be contacted through forms on their official websites rather than by direct email.</p>
         `;
         repsList.appendChild(noteElement);
         
@@ -809,7 +825,11 @@ Thank you for your time and service.`;
                     </div>
                     <div class="flex items-center mb-1">
                         <span class="mr-2">✉️</span>
-                        <span class="${email === 'No email available' ? 'text-gray-500' : 'text-gray-300'}">${escapeHtml(email)}</span>
+                        <span class="${email === 'No email available' ? 'text-gray-500' : 'text-gray-300'}">
+                            ${email === 'No email available' ? 
+                                'No email available (may use website contact form instead)' : 
+                                escapeHtml(email)}
+                        </span>
                     </div>
                     ${rep.official.urls && rep.official.urls[0] ? `
                     <div class="flex items-center">
