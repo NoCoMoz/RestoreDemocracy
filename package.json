@@ -1,0 +1,13 @@
+{
+  "name": "restore-project",
+  "version": "1.0.0",
+  "description": "Congressional Recall Amendment website",
+  "main": "index.js",
+  "scripts": {
+    "build:css": "tailwindcss -i ./src/input.css -o ./dist/output.css",
+    "watch:css": "tailwindcss -i ./src/input.css -o ./dist/output.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.3.0"
+  }
+}

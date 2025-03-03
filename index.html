@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Congressional Recall Amendment</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="./dist/output.css" rel="stylesheet">
     <link href="styles.css" rel="stylesheet">
 </head>
-<body>
+<body class="bg-gray-900 text-white">
     <!-- Hero Section -->
     <section class="hero-bg min-h-screen flex items-center justify-center relative">
         <div class="container mx-auto px-4 py-16 relative z-10 text-center">
@@ -16,9 +16,7 @@
             <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-lg text-xl pulse-button" id="openAmendmentBtn">
                 Read The Amendment
             </button>
-            <div class="mt-12">
-                <img src="/api/placeholder/400/320" alt="Capitol with voting box illustration" class="mx-auto">
-            </div>
+            
         </div>
     </section>
 
@@ -194,26 +192,29 @@
             <h2 class="text-4xl font-bold mb-10">Get Involved</h2>
             <p class="text-xl mb-12 max-w-4xl mx-auto">Join the movement to restore accountability in Congress. Together, we can make our representatives answer directly to the people.</p>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-                <div class="step-card bg-blue-800 p-6 rounded-lg shadow-lg">
-                    <div class="text-4xl mb-4">📋</div>
-                    <h3 class="text-xl font-semibold mb-3">Sign The Petition</h3>
-                    <p class="mb-6">Add your voice to thousands demanding constitutional accountability.</p>
-                    <button class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg">Sign Now</button>
-                </div>
+            <div class="container mx-auto px-4 py-8">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                    <!-- Sign The Petition Card -->
+                    <div class="bg-blue-800 text-white rounded-lg shadow-lg p-6 text-center">
+                        <h2 class="text-xl font-bold mb-4">Sign The Petition</h2>
+                        <p class="mb-6">Add your voice to thousands demanding constitutional accountability.</p>
+                        <button id="signNowBtn" class="bg-white text-blue-800 font-bold py-2 px-6 rounded-lg hover:bg-blue-100 transition duration-300">Sign Now</button>
+                    </div>
 
-                <div class="step-card bg-blue-800 p-6 rounded-lg shadow-lg">
-                    <div class="text-4xl mb-4">🏛️</div>
-                    <h3 class="text-xl font-semibold mb-3">Contact Your Legislators</h3>
-                    <p class="mb-4">Tell your state representatives to support the recall amendment.</p>
-                    
-                    <!-- Representative Finder -->
-                    <div class="mb-4">
-                        <div class="flex flex-col mb-3">
-                            <input type="text" id="zipCodeInput" placeholder="Enter your ZIP code" class="bg-gray-800 border border-gray-600 rounded-lg px-4 py-2 mb-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                            <button id="findRepsBtn" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg">Find Representatives</button>
+                    <!-- Contact Your Legislators Card -->
+                    <div class="bg-blue-800 text-white rounded-lg shadow-lg p-6 text-center">
+                        <h2 class="text-xl font-bold mb-4">Contact Your Legislators</h2>
+                        <p class="mb-2">Tell your state representatives to support the recall amendment.</p>
+                        
+                        <h3 class="text-lg font-semibold mt-4 mb-2">Find Your State Legislators</h3>
+                        <p class="text-sm mb-4">Enter your ZIP code to find your state legislators who can vote on a Congressional Recall Amendment.</p>
+                        
+                        <div class="flex mb-4">
+                            <input type="text" id="zipCodeInput" placeholder="Enter ZIP Code" class="flex-grow px-4 py-2 rounded-l-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <button id="findRepsBtn" class="bg-white text-blue-800 font-bold py-2 px-4 rounded-r-lg hover:bg-blue-100 transition duration-300">Find Legislators</button>
                         </div>
-                        <button id="detectLocationBtn" class="text-blue-400 hover:text-blue-300 text-sm flex items-center justify-center mx-auto">
+                        
+                        <button id="detectLocationBtn" class="text-sm text-blue-200 hover:text-white transition duration-300 flex items-center justify-center mx-auto">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -222,29 +223,29 @@
                         </button>
                     </div>
 
-                    <!-- Loading spinner -->
-                    <div id="loadingSpinner" class="hidden text-center py-3">
-                        <div class="inline-block animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-blue-500"></div>
-                        <p class="mt-2">Searching...</p>
+                    <!-- Spread The Word Card -->
+                    <div class="bg-blue-800 text-white rounded-lg shadow-lg p-6 text-center">
+                        <h2 class="text-xl font-bold mb-4">Spread The Word</h2>
+                        <p class="mb-6">Share this movement on social media and with your community.</p>
+                        <button id="shareNowBtn" class="bg-white text-blue-800 font-bold py-2 px-6 rounded-lg hover:bg-blue-100 transition duration-300">Share Now</button>
                     </div>
-
-                    <!-- Results container -->
-                    <div id="representativesResults" class="hidden mt-4">
-                        <h4 class="text-lg font-medium mb-3">Your Representatives:</h4>
-                        <div id="repsList" class="space-y-3 max-h-60 overflow-y-auto">
-                            <!-- Representatives will be populated here -->
-                        </div>
-                    </div>
-
-                    <!-- Error message -->
-                    <div id="errorMessage" class="hidden text-red-500 text-center mt-3"></div>
                 </div>
 
-                <div class="step-card bg-blue-800 p-6 rounded-lg shadow-lg">
-                    <div class="text-4xl mb-4">🔗</div>
-                    <h3 class="text-xl font-semibold mb-3">Spread The Word</h3>
-                    <p class="mb-6">Share this movement on social media and with your community.</p>
-                    <button class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg">Share Now</button>
+                <!-- Representatives Results Section -->
+                <div id="representativesResults" class="hidden">
+                    <h2 class="text-2xl font-bold mb-4 text-center text-white">Your Representatives:</h2>
+                    
+                    <!-- Loading Indicator -->
+                    <div id="loadingIndicator" class="hidden text-center py-8">
+                        <div class="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-white"></div>
+                        <p class="mt-2 text-white">Loading your representatives...</p>
+                    </div>
+                    
+                    <!-- Error Message -->
+                    <div id="errorMessage" class="hidden text-center py-8 text-red-400"></div>
+                    
+                    <!-- Representatives List - Now a full-width container -->
+                    <div id="repsList" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
                 </div>
             </div>
         </div>
@@ -312,171 +313,5 @@
     </div>
 
     <script src="script.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const zipCodeInput = document.getElementById('zipCodeInput');
-            const findRepsBtn = document.getElementById('findRepsBtn');
-            const detectLocationBtn = document.getElementById('detectLocationBtn');
-            const loadingSpinner = document.getElementById('loadingSpinner');
-            const representativesResults = document.getElementById('representativesResults');
-            const repsList = document.getElementById('repsList');
-            const errorMessage = document.getElementById('errorMessage');
-            
-            // API key for OpenStates API
-            const OPENSTATES_API_KEY = '8350a02-aa9c-4ab8-a5c7-f6a0cf015828';
-            
-            // Function to find representatives by ZIP code
-            function findRepresentativesByZip(zipCode) {
-                showLoading();
-                
-                // First convert ZIP to coordinates using Census Geocoding API (free, no key needed)
-                fetch(`https://geocoding.geo.census.gov/geocoder/locations/address?street=&city=&state=&benchmark=2020&format=json&zip=${zipCode}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.result && data.result.addressMatches && data.result.addressMatches[0]) {
-                            const coords = data.result.addressMatches[0].coordinates;
-                            return findRepresentativesByLocation(coords.y, coords.x); // y is lat, x is long
-                        } else {
-                            throw new Error('Could not find location for ZIP code');
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error getting coordinates:', error);
-                        showError('Could not find location for this ZIP code');
-                    });
-            }
-
-            // Function to find representatives by location
-            function findRepresentativesByLocation(lat, lng) {
-                return fetch(`https://v3.openstates.org/people.geo?lat=${lat}&lng=${lng}`, {
-                    headers: {
-                        'X-API-Key': OPENSTATES_API_KEY,
-                        'Accept': 'application/json'
-                    }
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    displayRepresentatives(data.results);
-                })
-                .catch(error => {
-                    console.error('Error fetching representatives:', error);
-                    showError('Unable to find representatives for this location');
-                });
-            }
-            
-            // Function to find ZIP code by geolocation
-            function findZipByGeolocation() {
-                if (!navigator.geolocation) {
-                    alert('Geolocation is not supported by your browser');
-                    return;
-                }
-                
-                showLoading();
-                
-                navigator.geolocation.getCurrentPosition(
-                    position => {
-                        const { latitude, longitude } = position.coords;
-                        findRepresentativesByLocation(latitude, longitude)
-                            .catch(error => {
-                                console.error('Error getting representatives:', error);
-                                showError();
-                            });
-                    },
-                    error => {
-                        console.error('Geolocation error:', error);
-                        hideLoading();
-                        alert('Unable to get your location. Please enter your ZIP code manually.');
-                    }
-                );
-            }
-            
-            // Function to display representatives
-            function displayRepresentatives(representatives) {
-                hideLoading();
-                
-                if (!representatives || representatives.length === 0) {
-                    showError();
-                    return;
-                }
-                
-                // Clear previous results
-                repsList.innerHTML = '';
-                
-                // Add each representative to the list
-                representatives.forEach(rep => {
-                    const repCard = document.createElement('div');
-                    repCard.className = 'bg-gray-700 p-4 rounded-lg';
-                    
-                    const partyColor = rep.party === 'Democratic' ? 'text-blue-400' : 
-                                    rep.party === 'Republican' ? 'text-red-400' : 'text-gray-400';
-                    
-                    repCard.innerHTML = `
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <h5 class="text-lg font-medium">${rep.name}</h5>
-                                <p class="text-sm ${partyColor}">${rep.party || 'Unknown Party'}</p>
-                                <p class="text-sm text-gray-300">${rep.district || ''}</p>
-                            </div>
-                            ${rep.email ? `
-                            <a href="mailto:${rep.email}" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg">
-                                Email
-                            </a>
-                            ` : ''}
-                        </div>
-                        ${(rep.email || (rep.offices && rep.offices[0]?.phone)) ? `
-                        <div class="mt-3 text-sm text-gray-300">
-                            ${rep.offices && rep.offices[0]?.phone ? `<p>📞 ${rep.offices[0].phone}</p>` : ''}
-                        </div>
-                        ` : ''}
-                    `;
-                    
-                    repsList.appendChild(repCard);
-                });
-                
-                representativesResults.classList.remove('hidden');
-            }
-            
-            // Helper functions for UI state
-            function showLoading() {
-                loadingSpinner.classList.remove('hidden');
-                representativesResults.classList.add('hidden');
-                errorMessage.classList.add('hidden');
-            }
-            
-            function hideLoading() {
-                loadingSpinner.classList.add('hidden');
-            }
-            
-            function showError(message = 'Unable to find representatives. Please check your ZIP code and try again.') {
-                hideLoading();
-                errorMessage.textContent = message;
-                errorMessage.classList.remove('hidden');
-            }
-            
-            // Event listeners
-            findRepsBtn.addEventListener('click', () => {
-                const zipCode = zipCodeInput.value.trim();
-                if (zipCode) {
-                    findRepresentativesByZip(zipCode);
-                } else {
-                    alert('Please enter a valid ZIP code');
-                }
-            });
-            
-            detectLocationBtn.addEventListener('click', findZipByGeolocation);
-            
-            // Also trigger search when pressing Enter in the input field
-            zipCodeInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    findRepsBtn.click();
-                }
-            });
-        });
-    </script>
 </body>
 </html>
