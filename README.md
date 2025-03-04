@@ -49,7 +49,36 @@ For a production environment, follow these steps to set up Tailwind CSS properly
 
 ## Features
 
-- Information about the proposed amendment
-- Representative lookup by ZIP code or geolocation
-- Modal for displaying the amendment text
-- Responsive design for all device sizes
+- Interactive UI with draggable hero section
+- Legislator lookup by ZIP code
+- Contact information for state representatives
+- Share functionality for social media
+- Mobile-responsive design
+- Animated elements for better user engagement
+
+## Recent Updates
+
+- Added draggable hero section that can be moved around the page
+- Enhanced text visibility with improved glow and shadow effects
+- Fixed mobile layout issues with proper button sizing
+- Improved background image loading and overlay for better text readability
+
+## Running the Project
+
+To run the project locally:
+
+```
+npm install
+npm run build:css
+npm run start
+```
+
+This will start a local server at http://localhost:9000
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.

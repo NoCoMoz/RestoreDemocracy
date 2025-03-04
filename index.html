@@ -9,14 +9,17 @@
 </head>
 <body class="bg-gray-900 text-white">
     <!-- Hero Section -->
-    <section class="hero-bg min-h-screen flex items-center justify-center relative">
-        <div class="container mx-auto px-4 py-16 relative z-10 text-center">
+    <section class="hero-bg min-h-screen flex items-center justify-center relative" style="background-image: url('./BallotBoxSemiReal.webp'); background-size: cover; background-position: center;">
+        <div class="absolute inset-0 bg-black bg-opacity-70"></div>
+        <div id="draggableHero" class="draggable-container mx-auto relative z-10 text-center">
+            <div class="drag-handle mb-4 cursor-move">
+                <div class="w-16 h-1 bg-gray-400 mx-auto rounded-full"></div>
+            </div>
             <h1 class="text-5xl md:text-7xl font-bold mb-6 glow-text">Restore Congressional Accountability</h1>
-            <p class="text-xl md:text-2xl mb-10 max-w-3xl mx-auto">A constitutional amendment to establish federal recall elections for members of Congress</p>
+            <p class="text-xl md:text-2xl mb-10 max-w-3xl mx-auto text-shadow">A constitutional amendment to establish federal recall elections for members of Congress</p>
             <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-lg text-xl pulse-button" id="openAmendmentBtn">
                 Read The Amendment
             </button>
-            
         </div>
     </section>
 

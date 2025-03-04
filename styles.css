@@ -5,7 +5,7 @@ body {
 }
 
 .hero-bg {
-    background-image: url('BallotBoxSemiReal.webp');
+    background-image: url('./BallotBoxSemiReal.webp');
     background-size: cover;
     background-position: center;
     position: relative;
@@ -21,8 +21,37 @@ body {
     background-color: rgba(0, 0, 0, 0.7);
 }
 
+/* Draggable container styles */
+.draggable-container {
+    max-width: 90%;
+    width: 800px;
+    cursor: grab;
+    transition: transform 0.2s ease;
+    position: relative;
+    user-select: none;
+    padding: 1rem;
+}
+
+.draggable-container:active {
+    cursor: grabbing;
+}
+
+.drag-handle {
+    padding: 4px 0;
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+}
+
+.draggable-container:hover .drag-handle {
+    opacity: 0.8;
+}
+
 .glow-text {
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.7), 0 0 20px rgba(255, 255, 255, 0.5), 0 0 30px rgba(100, 100, 255, 0.3);
+}
+
+.text-shadow {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8), 0 0 10px rgba(0, 0, 0, 0.7);
 }
 
 .pulse-button {
@@ -83,4 +112,93 @@ body {
 
 .step-card:hover {
     transform: translateY(-5px);
+}
+
+/* New styles for fixing margins and padding */
+.legislator-card {
+    padding: 1rem;
+    margin: 0.5rem;
+    box-sizing: border-box;
+    width: calc(100% - 1rem);
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.legislator-card button {
+    width: 100%;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 0.5rem;
+    box-sizing: border-box;
+}
+
+/* Ensure all buttons have proper margins and don't overhang */
+button {
+    max-width: 100%;
+    box-sizing: border-box;
+    margin: 0.25rem;
+}
+
+/* Add padding to containers to prevent content from touching edges */
+.container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    box-sizing: border-box;
+}
+
+/* Ensure form elements don't overflow their containers */
+input, select, textarea {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* Add padding to the legislator lookup section */
+#legislatorLookup {
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+/* Ensure the zip code input and button don't overflow */
+#zipCodeInput {
+    width: calc(100% - 0.5rem);
+    margin: 0.25rem;
+    box-sizing: border-box;
+}
+
+#findRepsBtn {
+    width: calc(100% - 0.5rem);
+    margin: 0.25rem;
+    box-sizing: border-box;
+}
+
+/* Add padding to the representatives results section */
+#representativesResults {
+    padding: 0.5rem;
+    box-sizing: border-box;
+}
+
+/* Ensure the share section has proper padding */
+.share-section {
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+/* Make sure all content has proper padding on mobile */
+@media (max-width: 768px) {
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    
+    button, a.button {
+        margin: 0.5rem 0;
+        width: 100%;
+    }
+    
+    .legislator-card {
+        margin: 0.5rem 0;
+        width: 100%;
+    }
 }

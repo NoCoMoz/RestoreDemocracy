@@ -18,6 +18,171 @@ document.addEventListener('DOMContentLoaded', function() {
     const GOOGLE_API_KEY = 'AIzaSyBjdHFb5WA4VE9d4HruWzMvr4cPAby2TvI';
     const OPENSTATES_API_KEY = 'e8350a02-aa9c-4ab8-a5c7-f6a0cf015828';
 
+    // Make the hero container draggable
+    const draggableHero = document.getElementById('draggableHero');
+    
+    if (draggableHero) {
+        let isDragging = false;
+        let offsetX, offsetY;
+        
+        // Function to handle mouse down event
+        function onMouseDown(e) {
+            // Only allow dragging from the drag handle or the container itself (not buttons or links)
+            if (e.target.closest('.drag-handle') || e.target === draggableHero) {
+                isDragging = true;
+                
+                // Calculate the offset from the mouse position to the container position
+                const rect = draggableHero.getBoundingClientRect();
+                offsetX = e.clientX - rect.left;
+                offsetY = e.clientY - rect.top;
+                
+                // Add active class for styling
+                draggableHero.classList.add('active');
+                
+                // Prevent text selection during drag
+                e.preventDefault();
+            }
+        }
+        
+        // Function to handle mouse move event
+        function onMouseMove(e) {
+            if (!isDragging) return;
+            
+            // Calculate new position
+            const x = e.clientX - offsetX;
+            const y = e.clientY - offsetY;
+            
+            // Apply new position
+            draggableHero.style.position = 'absolute';
+            draggableHero.style.left = x + 'px';
+            draggableHero.style.top = y + 'px';
+            draggableHero.style.transform = 'none'; // Remove any transform that might interfere
+        }
+        
+        // Function to handle mouse up event
+        function onMouseUp() {
+            if (isDragging) {
+                isDragging = false;
+                draggableHero.classList.remove('active');
+            }
+        }
+        
+        // Add event listeners
+        draggableHero.addEventListener('mousedown', onMouseDown);
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseup', onMouseUp);
+        
+        // Touch events for mobile
+        draggableHero.addEventListener('touchstart', function(e) {
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent('mousedown', {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            onMouseDown(mouseEvent);
+        }, { passive: false });
+        
+        document.addEventListener('touchmove', function(e) {
+            if (!isDragging) return;
+            
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent('mousemove', {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            onMouseMove(mouseEvent);
+            e.preventDefault(); // Prevent scrolling while dragging
+        }, { passive: false });
+        
+        document.addEventListener('touchend', onMouseUp);
+        
+        // Center the container initially
+        function centerContainer() {
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
+            const containerWidth = draggableHero.offsetWidth;
+            const containerHeight = draggableHero.offsetHeight;
+            
+            const centerX = (viewportWidth - containerWidth) / 2;
+            const centerY = (viewportHeight - containerHeight) / 2;
+            
+            draggableHero.style.position = 'absolute';
+            draggableHero.style.left = centerX + 'px';
+            draggableHero.style.top = centerY + 'px';
+            draggableHero.style.transform = 'none';
+        }
+        
+        // Center on load and resize
+        centerContainer();
+        window.addEventListener('resize', centerContainer);
+    }
+
+    // Function to ensure proper button styling and prevent overhanging
+    function fixButtonStyling() {
+        // Get all buttons in the document
+        const buttons = document.querySelectorAll('button');
+        
+        // Apply proper styling to each button
+        buttons.forEach(button => {
+            // Ensure buttons have proper box-sizing
+            button.style.boxSizing = 'border-box';
+            button.style.maxWidth = '100%';
+            
+            // Add margin if not already present
+            if (!button.style.margin) {
+                button.style.margin = '0.25rem';
+            }
+            
+            // Ensure text doesn't overflow
+            button.style.overflow = 'hidden';
+            button.style.textOverflow = 'ellipsis';
+            button.style.whiteSpace = 'nowrap';
+        });
+        
+        // Fix legislator cards if they exist
+        const legislatorCards = document.querySelectorAll('.legislator-card');
+        legislatorCards.forEach(card => {
+            card.style.padding = '1rem';
+            card.style.margin = '0.5rem';
+            card.style.boxSizing = 'border-box';
+            card.style.width = 'calc(100% - 1rem)';
+            card.style.maxWidth = '100%';
+            card.style.overflow = 'hidden';
+        });
+        
+        // Fix the legislator lookup container
+        const legislatorLookup = document.getElementById('legislatorLookup');
+        if (legislatorLookup) {
+            legislatorLookup.style.padding = '1rem';
+            legislatorLookup.style.boxSizing = 'border-box';
+        }
+        
+        // Fix the zip code input and find reps button
+        if (zipCodeInput) {
+            zipCodeInput.style.width = 'calc(100% - 0.5rem)';
+            zipCodeInput.style.margin = '0.25rem';
+            zipCodeInput.style.boxSizing = 'border-box';
+        }
+        
+        if (findRepsBtn) {
+            findRepsBtn.style.width = 'calc(100% - 0.5rem)';
+            findRepsBtn.style.margin = '0.25rem';
+            findRepsBtn.style.boxSizing = 'border-box';
+        }
+        
+        if (detectLocationBtn) {
+            detectLocationBtn.style.width = 'calc(100% - 0.5rem)';
+            detectLocationBtn.style.margin = '0.25rem';
+            detectLocationBtn.style.boxSizing = 'border-box';
+        }
+        
+        // Fix the representatives results container
+        if (representativesResults) {
+            representativesResults.style.padding = '0.5rem';
+            representativesResults.style.boxSizing = 'border-box';
+        }
+    }
+
     // Event listeners for modal
     if (openBtn && modal) {
         openBtn.onclick = () => {
@@ -235,10 +400,14 @@ Thank you for your time and service.`;
     function displayDistrictLegislators(legislators, state) {
         // Clear previous results
         repsList.innerHTML = '';
+
+        // Create a Set of legislator IDs for quick lookup
+        const legislatorIds = new Set(legislators.map(leg => leg.id));
         
         // Add a note at the top of the results
         const noteElement = document.createElement('div');
         noteElement.className = 'bg-blue-900 p-3 rounded-lg mb-4 text-sm col-span-full';
+        
         noteElement.innerHTML = `
             <p><strong>Your State Legislators</strong>: Showing ${legislators.length} state legislators who directly represent your district.</p>
             <p class="mt-1 text-xs">These officials can vote on state applications for an Article V convention.</p>
@@ -249,12 +418,13 @@ Thank you for your time and service.`;
                 </button>
             </div>
         `;
+        
         repsList.appendChild(noteElement);
         
         // Add each legislator to the grid
         legislators.forEach(legislator => {
             const repCard = document.createElement('div');
-            repCard.className = 'bg-gray-700 p-4 rounded-lg relative border-2 border-green-400';
+            repCard.className = 'bg-gray-700 p-4 rounded-lg relative border-2 border-green-400 legislator-card';
             
             // Determine party color
             const partyColor = legislator.party === 'Democratic' ? 'text-blue-400' : 
@@ -366,6 +536,9 @@ Thank you for your time and service.`;
         }
         
         representativesResults.classList.remove('hidden');
+        
+        // Apply the fixButtonStyling function to ensure proper styling
+        fixButtonStyling();
     }
     
     // Display all state legislators
@@ -373,7 +546,7 @@ Thank you for your time and service.`;
         // Clear previous results
         repsList.innerHTML = '';
 
-        // Create a set of district legislator IDs for quick lookup
+        // Create a Set of district legislator IDs for quick lookup
         const districtLegislatorIds = new Set(districtLegislators.map(leg => leg.id));
         
         // Add a note at the top of the results
@@ -383,7 +556,7 @@ Thank you for your time and service.`;
         if (districtLegislators.length > 0) {
             noteElement.innerHTML = `
                 <p><strong>All State Legislators for ${state}</strong>: Showing all state-level legislators. Your district representatives are highlighted with a green border.</p>
-                <p class="mt-1 text-xs">These officials can vote on state applications for an Article V convention. Federal officials are not shown.</p>
+                <p class="mt-1 text-xs">These officials can vote on state applications for an Article V convention.</p>
                 <p class="mt-1 text-xs italic">Some representatives prefer to be contacted through forms on their official websites rather than by direct email.</p>
                 <div class="mt-2">
                     <button id="showDistrictOnly" class="text-xs bg-blue-700 hover:bg-blue-600 text-white px-3 py-1 rounded">
@@ -394,7 +567,7 @@ Thank you for your time and service.`;
         } else {
             noteElement.innerHTML = `
                 <p><strong>State Legislators for ${state}</strong>: Showing all state-level legislators (State Senators, Representatives, Assemblymembers, etc.) for ${state}.</p>
-                <p class="mt-1 text-xs">These officials can vote on state applications for an Article V convention. Federal officials are not shown.</p>
+                <p class="mt-1 text-xs">These officials can vote on state applications for an Article V convention.</p>
                 <p class="mt-1 text-xs italic">Some representatives prefer to be contacted through forms on their official websites rather than by direct email.</p>
             `;
         }
@@ -404,7 +577,7 @@ Thank you for your time and service.`;
         // Add each legislator to the grid
         allLegislators.forEach(legislator => {
             const repCard = document.createElement('div');
-            repCard.className = 'bg-gray-700 p-4 rounded-lg relative';
+            repCard.className = 'bg-gray-700 p-4 rounded-lg relative legislator-card';
             
             // Check if this is a district legislator
             const isDistrictLegislator = districtLegislatorIds.has(legislator.id);
@@ -502,6 +675,9 @@ Thank you for your time and service.`;
         }
         
         representativesResults.classList.remove('hidden');
+        
+        // Apply the fixButtonStyling function to ensure proper styling
+        fixButtonStyling();
     }
 
     // Display representatives from Google Civic API
@@ -648,97 +824,115 @@ Thank you for your time and service.`;
         
         // TEMPORARY: If no state legislators found, show all representatives for debugging
         if (stateReps.length === 0 && allReps.length > 0) {
-            // Add a note at the top of the results
-            const noteElement = document.createElement('div');
-            noteElement.className = 'bg-red-900 p-3 rounded-lg mb-4 text-sm col-span-full';
-            noteElement.innerHTML = `
-                <p><strong>DEBUG MODE:</strong> No state legislators were found with our filtering criteria. Showing ALL representatives for debugging purposes.</p>
-                <p class="mt-1 text-xs">Please check the console for detailed filtering information.</p>
-            `;
-            repsList.appendChild(noteElement);
-            
-            // Add each representative to the grid
-            allReps.forEach(rep => {
-                const repCard = document.createElement('div');
-                repCard.className = 'bg-gray-700 p-4 rounded-lg';
+            // Filter out federal representatives from allReps
+            const nonFederalReps = allReps.filter(rep => {
+                const officeName = rep.office.name.toLowerCase();
+                const divisionId = rep.office.divisionId || '';
+                const levels = rep.office.levels || [];
                 
-                // Determine party color
-                const partyColor = rep.official.party === 'Democratic Party' || rep.official.party === 'Democrat' ? 'text-blue-400' : 
-                                rep.official.party === 'Republican Party' || rep.official.party === 'Republican' ? 'text-red-400' : 'text-gray-400';
-                
-                // Get contact information
-                const email = rep.official.emails && rep.official.emails[0] ? rep.official.emails[0] : 'No email available';
-                const phone = rep.official.phones && rep.official.phones[0] ? rep.official.phones[0] : 'No phone available';
-                
-                // Determine if email is available for styling
-                const emailAvailable = rep.official.emails && rep.official.emails[0];
-                const emailBtnClass = emailAvailable 
-                    ? 'bg-blue-600 hover:bg-blue-700 text-white' 
-                    : 'bg-gray-600 text-gray-400 cursor-not-allowed';
-                
-                // Add debug info to the card
-                const debugInfo = `
-                    <div class="mt-2 text-xs border-t border-gray-600 pt-2">
-                        <p class="text-yellow-400">Debug Info:</p>
-                        <p>Office: ${escapeHtml(rep.debug.officeName)}</p>
-                        <p>Division: ${escapeHtml(rep.debug.divisionId)}</p>
-                        <p>Levels: ${escapeHtml(rep.debug.levels ? rep.debug.levels.join(', ') : 'none')}</p>
-                        <p>
-                            State: ${rep.debug.isStateLevel ? '✓' : '✗'} | 
-                            Not Federal: ${rep.debug.isNotFederal ? '✓' : '✗'} | 
-                            Legislative: ${rep.debug.isStateLegislator ? '✓' : '✗'}
-                        </p>
-                    </div>
-                `;
-                
-                repCard.innerHTML = `
-                    ${debugInfo}
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <h5 class="text-lg font-medium">${escapeHtml(rep.official.name)}</h5>
-                            <p class="text-sm ${partyColor}">${escapeHtml(rep.official.party || 'Unknown Party')}</p>
-                            <p class="text-sm text-gray-300">${escapeHtml(rep.office.name)}</p>
-                        </div>
-                    </div>
-                    <div class="mt-3 text-sm">
-                        <div class="flex items-center mb-1">
-                            <span class="mr-2">📞</span>
-                            <span class="${phone === 'No phone available' ? 'text-gray-500' : 'text-gray-300'}">
-                                ${phone !== 'No phone available' ? 
-                                    `<a href="tel:${escapeHtml(phone.replace(/\D/g, ''))}" class="hover:underline">${escapeHtml(phone)}</a>` : 
-                                    'No phone available'}
-                            </span>
-                        </div>
-                        <div class="flex items-center mb-1">
-                            <span class="mr-2">✉️</span>
-                            <span class="${email === 'No email available' ? 'text-gray-500' : 'text-gray-300'}">
-                                ${email === 'No email available' ? 
-                                    'No email available (may use website contact form instead)' : 
-                                    escapeHtml(email)}
-                            </span>
-                        </div>
-                        ${rep.official.urls && rep.official.urls[0] ? `
-                        <div class="flex items-center">
-                            <span class="mr-2">🌐</span>
-                            <a href="${escapeHtml(rep.official.urls[0])}" target="_blank" class="text-blue-400 hover:text-blue-300">Official Website</a>
-                        </div>` : ''}
-                    </div>
-                    <div class="mt-3">
-                        <button class="email-btn ${emailBtnClass} font-medium py-2 px-4 rounded-lg w-full block text-center" 
-                           data-email="${emailAvailable ? escapeHtml(email) : ''}"
-                           data-name="${escapeHtml(rep.official.name)}"
-                           data-title="${escapeHtml(rep.office.name)}"
-                           ${!emailAvailable ? 'disabled' : ''}>
-                            Email Representative
-                        </button>
-                    </div>
-                `;
-                
-                repsList.appendChild(repCard);
+                // Only include non-federal representatives in the debug info
+                return !levels.includes('country') &&
+                    !officeName.includes('united states') && 
+                    !officeName.includes('u.s.') &&
+                    !officeName.includes('us senator') &&
+                    !officeName.includes('us representative') &&
+                    !divisionId.includes('country:us');
             });
             
-            representativesResults.classList.remove('hidden');
-            return;
+            // If we have non-federal representatives, show them
+            if (nonFederalReps.length > 0) {
+                // Add a note at the top of the results
+                const noteElement = document.createElement('div');
+                noteElement.className = 'bg-yellow-800 p-3 rounded-lg mb-4 text-sm col-span-full';
+                noteElement.innerHTML = `
+                    <p><strong>NOTE:</strong> No state legislators were found with our strict filtering criteria. Showing other non-federal representatives.</p>
+                    <p class="mt-1 text-xs">Please check the console for detailed filtering information.</p>
+                `;
+                repsList.appendChild(noteElement);
+                
+                // Add each non-federal representative to the grid
+                nonFederalReps.forEach(rep => {
+                    const repCard = document.createElement('div');
+                    repCard.className = 'bg-gray-700 p-4 rounded-lg legislator-card';
+                    
+                    // Determine party color
+                    const partyColor = rep.official.party === 'Democratic Party' || rep.official.party === 'Democrat' ? 'text-blue-400' : 
+                                    rep.official.party === 'Republican Party' || rep.official.party === 'Republican' ? 'text-red-400' : 'text-gray-400';
+                    
+                    // Get contact information
+                    const email = rep.official.emails && rep.official.emails[0] ? rep.official.emails[0] : 'No email available';
+                    const phone = rep.official.phones && rep.official.phones[0] ? rep.official.phones[0] : 'No phone available';
+                    
+                    // Determine if email is available for styling
+                    const emailAvailable = rep.official.emails && rep.official.emails[0];
+                    const emailBtnClass = emailAvailable 
+                        ? 'bg-blue-600 hover:bg-blue-700 text-white' 
+                        : 'bg-gray-600 text-gray-400 cursor-not-allowed';
+                    
+                    // Add debug info to the card
+                    const debugInfo = `
+                        <div class="mt-2 text-xs border-t border-gray-600 pt-2">
+                            <p class="text-yellow-400">Debug Info:</p>
+                            <p>Office: ${escapeHtml(rep.debug.officeName)}</p>
+                            <p>Division: ${escapeHtml(rep.debug.divisionId)}</p>
+                            <p>Levels: ${escapeHtml(rep.debug.levels ? rep.debug.levels.join(', ') : 'none')}</p>
+                            <p>
+                                State: ${rep.debug.isStateLevel ? '✓' : '✗'} | 
+                                Not Federal: ${rep.debug.isNotFederal ? '✓' : '✗'} | 
+                                Legislative: ${rep.debug.isStateLegislator ? '✓' : '✗'}
+                            </p>
+                        </div>
+                    `;
+                    
+                    repCard.innerHTML = `
+                        ${debugInfo}
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h5 class="text-lg font-medium">${escapeHtml(rep.official.name)}</h5>
+                                <p class="text-sm ${partyColor}">${escapeHtml(rep.official.party || 'Unknown Party')}</p>
+                                <p class="text-sm text-gray-300">${escapeHtml(rep.office.name)}</p>
+                            </div>
+                        </div>
+                        <div class="mt-3 text-sm">
+                            <div class="flex items-center mb-1">
+                                <span class="mr-2">📞</span>
+                                <span class="${phone === 'No phone available' ? 'text-gray-500' : 'text-gray-300'}">
+                                    ${phone !== 'No phone available' ? 
+                                        `<a href="tel:${escapeHtml(phone.replace(/\D/g, ''))}" class="hover:underline">${escapeHtml(phone)}</a>` : 
+                                        'No phone available'}
+                                </span>
+                            </div>
+                            <div class="flex items-center mb-1">
+                                <span class="mr-2">✉️</span>
+                                <span class="${email === 'No email available' ? 'text-gray-500' : 'text-gray-300'}">
+                                    ${email === 'No email available' ? 
+                                        'No email available (may use website contact form instead)' : 
+                                        escapeHtml(email)}
+                                </span>
+                            </div>
+                            ${rep.official.urls && rep.official.urls[0] ? `
+                            <div class="flex items-center">
+                                <span class="mr-2">🌐</span>
+                                <a href="${escapeHtml(rep.official.urls[0])}" target="_blank" class="text-blue-400 hover:text-blue-300">Official Website</a>
+                            </div>` : ''}
+                        </div>
+                        <div class="mt-3">
+                            <button class="email-btn ${emailBtnClass} font-medium py-2 px-4 rounded-lg w-full block text-center" 
+                               data-email="${emailAvailable ? escapeHtml(email) : ''}"
+                               data-name="${escapeHtml(rep.official.name)}"
+                               data-title="${escapeHtml(rep.office.name)}"
+                               ${!emailAvailable ? 'disabled' : ''}>
+                                Email Representative
+                            </button>
+                        </div>
+                    `;
+                    
+                    repsList.appendChild(repCard);
+                });
+                
+                representativesResults.classList.remove('hidden');
+                return;
+            }
         }
         
         if (stateReps.length === 0) {
@@ -747,9 +941,21 @@ Thank you for your time and service.`;
             if (filteredOutReps.length > 0) {
                 debugInfo = `
                     <div class="mt-4 p-3 bg-gray-800 rounded-lg">
-                        <h5 class="text-yellow-400 mb-2">Debug: Representatives found but filtered out</h5>
+                        <h4 class="font-medium mb-2">Filtered Out Representatives (Non-State Legislators):</h4>
                         <ul class="text-sm">
-                            ${filteredOutReps.slice(0, 5).map(rep => `
+                            ${filteredOutReps.filter(rep => {
+                                const officeName = rep.office.name.toLowerCase();
+                                const divisionId = rep.office.divisionId || '';
+                                const levels = rep.office.levels || [];
+                                
+                                // Only include non-federal representatives in the debug info
+                                return !levels.includes('country') &&
+                                    !officeName.includes('united states') && 
+                                    !officeName.includes('u.s.') &&
+                                    !officeName.includes('us senator') &&
+                                    !officeName.includes('us representative') &&
+                                    !divisionId.includes('country:us');
+                            }).slice(0, 5).map(rep => `
                                 <li class="mb-2 pb-2 border-b border-gray-700">
                                     <strong>${escapeHtml(rep.official.name)}</strong> - ${escapeHtml(rep.office.name)}<br>
                                     <span class="text-xs">
@@ -769,7 +975,7 @@ Thank you for your time and service.`;
             repsList.innerHTML = `
                 <div class="col-span-full text-center">
                     <p class="text-center py-3">No state legislators found for this location. Please try a different ZIP code.</p>
-                    <p class="text-center text-sm">Note: We only display state-level legislators (State Senators, Representatives, Assemblymembers, etc.).</p>
+                    <p class="text-center text-sm">Note: We only display state-level legislators (State Senators, State Representatives, State Assembly members, etc.).</p>
                     ${debugInfo}
                 </div>
             `;
@@ -790,7 +996,7 @@ Thank you for your time and service.`;
         // Add each representative to the grid
         stateReps.forEach(rep => {
             const repCard = document.createElement('div');
-            repCard.className = 'bg-gray-700 p-4 rounded-lg';
+            repCard.className = 'bg-gray-700 p-4 rounded-lg legislator-card';
             
             // Determine party color
             const partyColor = rep.official.party === 'Democratic Party' || rep.official.party === 'Democrat' ? 'text-blue-400' : 
@@ -911,21 +1117,41 @@ Thank you for your time and service.`;
 
     // Initialize the application
     function init() {
+        fixButtonStyling();
+        
+        // Add window resize event listener to maintain proper styling
+        window.addEventListener('resize', fixButtonStyling);
+        
+        // Add mutation observer to handle dynamically added content
+        const observer = new MutationObserver(mutations => {
+            mutations.forEach(mutation => {
+                if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+                    fixButtonStyling();
+                }
+            });
+        });
+        
+        // Start observing the document body for DOM changes
+        observer.observe(document.body, { 
+            childList: true, 
+            subtree: true 
+        });
+        
         if (findRepsBtn) {
             findRepsBtn.addEventListener('click', () => {
                 const zipCode = zipCodeInput.value.trim();
                 if (zipCode) {
                     findRepresentatives(zipCode);
                 } else {
-                    showError('Please enter a valid ZIP code');
+                    showError("Please enter a ZIP code");
                 }
             });
         }
-
+        
         if (detectLocationBtn) {
             detectLocationBtn.addEventListener('click', detectLocation);
         }
-
+        
         if (zipCodeInput) {
             zipCodeInput.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') {
@@ -952,6 +1178,41 @@ Thank you for your time and service.`;
                 }
             }
         });
+        
+        // Add event listener for the share button
+        const shareButton = document.getElementById('shareNow');
+        if (shareButton) {
+            shareButton.addEventListener('click', () => {
+                try {
+                    // Create a temporary input element
+                    const tempInput = document.createElement('input');
+                    // Set its value to the current URL
+                    tempInput.value = window.location.href;
+                    // Append it to the document
+                    document.body.appendChild(tempInput);
+                    // Select its contents
+                    tempInput.select();
+                    // Copy the selected text
+                    document.execCommand('copy');
+                    // Remove the temporary element
+                    document.body.removeChild(tempInput);
+                    
+                    // Change button text to indicate success
+                    const originalText = shareButton.innerHTML;
+                    shareButton.innerHTML = '<svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>Copied!';
+                    
+                    // Reset button text after 2 seconds
+                    setTimeout(() => {
+                        shareButton.innerHTML = originalText;
+                    }, 2000);
+                } catch (err) {
+                    console.error('Failed to copy URL: ', err);
+                }
+            });
+        }
+        
+        // Fix styling again after a short delay to ensure all elements are loaded
+        setTimeout(fixButtonStyling, 500);
     }
 
     // Initialize the application when the DOM is loaded
